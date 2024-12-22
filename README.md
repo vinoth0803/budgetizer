@@ -19,6 +19,10 @@ Budgetizer is a simple, responsive, and interactive budgeting application that h
 - **Frontend**: HTML, CSS, JavaScript, Tailwind CSS
 - **Backend**: PHP
 - **Database**: Firebase Realtime Database
+- 
+- ## Contact
+For questions, feedback, or collaboration opportunities, feel free to reach out:  
+📧 **[vinothkrish0803@gmail.com](mailto:vinothkrish0803@gmail.com)**  
 
 ## File Structure
 
@@ -36,6 +40,4 @@ Budgetizer is a simple, responsive, and interactive budgeting application that h
 ├── style.css                # Custom styles (optional)
 ├── README.md                # Project documentation
 
-## Contact
-For questions, feedback, or collaboration opportunities, feel free to reach out:  
-📧 **[vinothkrish0803@gmail.com](mailto:vinothkrish0803@gmail.com)**  
+
