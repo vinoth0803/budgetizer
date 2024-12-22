@@ -85,6 +85,14 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchTransactions();
 });
 const toggleThemeBtn = document.getElementById("theme-toggle");
+
 toggleThemeBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        toggleThemeBtn.textContent = "Switch to Light Mode";
+    } else {
+        toggleThemeBtn.textContent = "Switch to Dark Mode";
+    }
 });
+
