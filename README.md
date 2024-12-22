@@ -35,3 +35,7 @@ Budgetizer is a simple, responsive, and interactive budgeting application that h
 │   ├── fetch-transactions.php # API for fetching transaction history
 ├── style.css                # Custom styles (optional)
 ├── README.md                # Project documentation
+
+## Contact
+For questions, feedback, or collaboration opportunities, feel free to reach out:  
+📧 **[vinothkrish0803@gmail.com](mailto:vinothkrish0803@gmail.com)**  
