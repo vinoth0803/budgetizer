@@ -67,32 +67,39 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch("fetch-transactions.php")
             .then(response => response.json())
             .then(transactions => {
-                transactionsContainer.innerHTML = "";
+                const transactionsContainer = document.getElementById('transactions');
+                transactionsContainer.innerHTML = ""; // Clear existing content
+    
                 transactions.forEach(transaction => {
                     const transactionDiv = document.createElement("div");
-                    transactionDiv.className = `p-2 mb-2 rounded ${
+                    transactionDiv.className = `transaction-item p-4 mb-4 rounded shadow ${
                         transaction.type === "credit" ? "bg-green-100" : "bg-red-100"
                     }`;
                     transactionDiv.innerHTML = `
                         <p><strong>${transaction.type.toUpperCase()}:</strong> ₹${transaction.amount}</p>
-                        <p>${transaction.note}</p>
+                        <p><strong>Note:</strong> ${transaction.note || "No note provided"}</p>
+                        <p><strong>Date & Time:</strong> ${transaction.date_time || "N/A"}</p>
                     `;
                     transactionsContainer.appendChild(transactionDiv);
                 });
-            });
+            })
+            .catch(error => console.error("Error fetching transactions:", error));
     }
-
+    
+    // Call the function to load transactions
     fetchTransactions();
+    
+    
 });
 const toggleThemeBtn = document.getElementById("theme-toggle");
 
-toggleThemeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-
-    if (document.body.classList.contains("dark")) {
+toggleThemeBtn.addEventListener("click", function () {
+    const body = document.body;
+    body.classList.toggle("dark");
+    
+    if (body.classList.contains("dark")) {
         toggleThemeBtn.textContent = "Switch to Light Mode";
     } else {
         toggleThemeBtn.textContent = "Switch to Dark Mode";
     }
 });
-

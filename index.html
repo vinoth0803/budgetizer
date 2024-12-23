@@ -8,14 +8,102 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
     <style>
+        /* Base transaction styles */
+#transactions {
+    background-color: #fff;
+    color: #333;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode styles */
+body.dark #transactions {
+    background-color: #444;  /* Darker background in dark mode */
+    color: #fff;  /* Lighter text color in dark mode */
+}
+
+/* Styling for each transaction item */
+#transactions .transaction-item {
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+body.dark #transactions .transaction-item {
+    background-color: #555;  /* Darker background for individual items */
+    color: #fff;  /* Light text in dark mode */
+}
+
+/* Specific colors for credit and debit transactions */
+body.dark .bg-green-100 {
+    background-color: #2e7d32;  /* Darker green for credit */
+}
+
+body.dark .bg-red-100 {
+    background-color: #d32f2f;  /* Darker red for debit */
+}
+
         body {
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+    
+        /* Tailwind Overrides for Light and Dark Modes */
         body.dark {
-            background-color: #333;
-            color: #fff;
+            background-color: #1a202c; /* Darker shade for dark mode */
+            color: #f7fafc; /* Lighter text for dark mode */
+        }
+    
+        #balance-display p {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    
+        body.dark #balance-display p {
+            background-color: #2d3748; /* Card background in dark mode */
+            color: #e2e8f0; /* Text color in dark mode */
+        }
+    
+        button {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    
+        button:hover {
+            background-color: #2f855a; /* Darker green on hover */
+        }
+    
+        body.dark button {
+            background-color: #48bb78; /* Light green in dark mode */
+            color: #1a202c; /* Darker text in dark mode for better contrast */
+        }
+    
+        body.dark button:hover {
+            background-color: #38a169; /* Hover color for dark mode */
+        }
+    
+        input, textarea, select {
+            background-color: #edf2f7; /* Light mode input background */
+            color: #2d3748; /* Text color in light mode */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    
+        body.dark input, 
+        body.dark textarea, 
+        body.dark select {
+            background-color: #2d3748; /* Input background in dark mode */
+            color: #e2e8f0; /* Input text in dark mode */
+        }
+    
+        #transactions {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    
+        body.dark #transactions {
+            background-color: #2d3748; /* Transactions section in dark mode */
+            color: #e2e8f0; /* Text color in dark mode */
         }
     </style>
+    
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
     <div class="container mx-auto p-6">

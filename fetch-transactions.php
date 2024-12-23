@@ -11,7 +11,17 @@ if ($response) {
     $data = json_decode($response, true);
     $transactions = [];
     foreach ($data as $key => $value) {
-        $transactions[] = $value;
+        // Include date and time formatting
+        $timestamp = isset($value['timestamp']) ? $value['timestamp'] : null;
+        $formatted_date = $timestamp ? date('Y-m-d H:i:s', $timestamp) : 'N/A';
+
+        $transactions[] = [
+            'id' => $key,
+            'amount' => $value['amount'],
+            'type' => $value['type'],
+            'note' => $value['note'],
+            'date_time' => $formatted_date
+        ];
     }
     echo json_encode($transactions);
 } else {

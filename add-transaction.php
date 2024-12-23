@@ -4,6 +4,9 @@ $firebase_url = "https://budgetizer-197bc-default-rtdb.firebaseio.com/transactio
 $input_data = json_decode(file_get_contents('php://input'), true);
 
 if ($input_data) {
+    // Add a timestamp to the transaction data
+    $input_data['timestamp'] = time(); // Add current Unix timestamp
+
     $ch = curl_init($firebase_url);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($input_data));
