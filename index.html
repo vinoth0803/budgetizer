@@ -58,7 +58,9 @@ body.dark .bg-red-100 {
         #balance-display p {
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-    
+        body.dark #current-balance {
+    color: #edf2f7;
+}
         body.dark #balance-display p {
             background-color: #2d3748; /* Card background in dark mode */
             color: #e2e8f0; /* Text color in dark mode */
@@ -93,6 +95,12 @@ body.dark .bg-red-100 {
             background-color: #2d3748; /* Input background in dark mode */
             color: #e2e8f0; /* Input text in dark mode */
         }
+        #current-balance {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2d3748;
+    text-align: center;
+}
     
         #transactions {
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -102,6 +110,11 @@ body.dark .bg-red-100 {
             background-color: #2d3748; /* Transactions section in dark mode */
             color: #e2e8f0; /* Text color in dark mode */
         }
+
+        body.dark #balance-card {
+    background-color: #4a5568;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
     </style>
     
 </head>
@@ -126,7 +139,9 @@ body.dark .bg-red-100 {
         <!-- Display Opening Balance -->
         <section id="balance-display" class="mb-6 hidden">
             <h2 class="text-2xl font-bold">Current Balance</h2>
-            <p id="current-balance" class="mt-2 text-xl bg-white p-4 rounded shadow">₹0.00</p>
+    <div id="balance-card" class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto mt-4">
+        <p id="current-balance" class="text-3xl font-semibold text-center">₹0.00</p>
+    </div>
         </section>
 
         <section class="mb-6">
