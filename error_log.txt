@@ -1,0 +1,14 @@
+Existing Data: {"amount":10000,"timestamp":1735016248}
+Firebase PUT Response: {"amount":1000,"timestamp":1735018229}
+Existing Data: {"amount":1000,"timestamp":1735018229}
+Firebase PUT Response: {"amount":500,"timestamp":1735018247}
+Existing Data: {"amount":500,"timestamp":1735018247}
+Firebase PUT Response: {"amount":1000,"timestamp":1735018273}
+Input Data: {"balance":1000}
+Firebase GET Response: {"amount":1000,"timestamp":1735018350846}
+Last Set Date: 2024-12-24
+Current Date: 2024-12-24
+Input Data: {"balance":1000}
+Firebase GET Response: {"amount":1000,"timestamp":1735018350846}
+Last Set Date: 2024-12-24
+Current Date: 2024-12-24

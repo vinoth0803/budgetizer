@@ -1,13 +1,14 @@
 <?php
+header('Content-Type: application/json');
+
 $firebase_url = "https://budgetizer-197bc-default-rtdb.firebaseio.com/balance.json";
 
-// Decode input data
 $input_data = json_decode(file_get_contents('php://input'), true);
 
-if ($input_data) {
+if ($input_data && isset($input_data['balance'])) {
     $balance = $input_data['balance'];
 
-    // Fetch existing balance data from Firebase
+    // Fetch existing balance data
     $ch = curl_init($firebase_url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $existing_data_response = curl_exec($ch);
@@ -15,21 +16,20 @@ if ($input_data) {
 
     $existing_data = json_decode($existing_data_response, true);
 
-    // Check if balance was already set today
+    // Check if balance is already set for today
+    $current_date = date('Y-m-d');
     if ($existing_data && isset($existing_data['timestamp'])) {
         $last_set_date = date('Y-m-d', $existing_data['timestamp']);
-        $current_date = date('Y-m-d');
-
         if ($last_set_date === $current_date) {
-            echo json_encode(['success' => false, 'error' => 'Balance has already been set today.']);
+            echo json_encode(['success' => false, 'error' => 'Balance already set today.']);
             exit;
         }
     }
 
-    // Update balance and timestamp in Firebase
+    // Update balance and timestamp
     $data_to_update = [
         'amount' => $balance,
-        'timestamp' => time()
+        'timestamp' => time(),
     ];
 
     $ch = curl_init($firebase_url);
@@ -44,9 +44,8 @@ if ($input_data) {
     if ($response) {
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false]);
+        echo json_encode(['success' => false, 'error' => 'Failed to update balance in database.']);
     }
 } else {
-    echo json_encode(['success' => false, 'error' => 'Invalid input']);
+    echo json_encode(['success' => false, 'error' => 'Invalid input.']);
 }
-?>
