@@ -57,6 +57,35 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     
+    function openEditForm(transactionId) {
+        const transactionDiv = document.querySelector(`button[data-id="${transactionId}"]`).parentNode;
+        const currentAmount = transactionDiv.querySelector(".transaction-amount").textContent;
+    
+        // Replace transaction details with an inline editing form
+        transactionDiv.innerHTML = `
+            <form class="edit-form">
+                <label for="edit-amount">Amount:</label>
+                <input type="number" id="edit-amount" value="${currentAmount}" required>
+                <button type="submit" class="bg-green-500 text-white px-2 py-1 rounded">Save</button>
+                <button type="button" class="cancel-edit bg-red-500 text-white px-2 py-1 rounded">Cancel</button>
+            </form>
+        `;
+    
+        // Add event listeners for Save and Cancel buttons
+        transactionDiv.querySelector(".edit-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const newAmount = parseFloat(document.getElementById("edit-amount").value);
+            if (newAmount > 0) {
+                updateTransaction(transactionId, newAmount);
+            } else {
+                alert("Enter a valid amount!");
+            }
+        });
+    
+        transactionDiv.querySelector(".cancel-edit").addEventListener("click", () => {
+            fetchTransactions(); // Reload the transactions list
+        });
+    }
     
 
     
@@ -119,11 +148,30 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchTransactions();
     });
 
+    function updateTransaction(transactionId, newAmount) {
+        fetch("edit-transaction.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: transactionId, amount: newAmount }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Transaction updated successfully!");
+                    fetchTransactions(); // Reload the transactions list
+                } else {
+                    alert(data.error || "Failed to update transaction!");
+                }
+            })
+            .catch(error => console.error("Error updating transaction:", error));
+    }
+    
+
     function fetchTransactions() {
         fetch("fetch-transactions.php")
             .then(response => response.json())
             .then(transactions => {
-                const transactionsContainer = document.getElementById('transactions');
+                const transactionsContainer = document.getElementById("transactions");
                 transactionsContainer.innerHTML = ""; // Clear existing content
     
                 transactions.forEach(transaction => {
@@ -132,15 +180,25 @@ document.addEventListener("DOMContentLoaded", () => {
                         transaction.type === "credit" ? "bg-green-100" : "bg-red-100"
                     }`;
                     transactionDiv.innerHTML = `
-                        <p><strong>${transaction.type.toUpperCase()}:</strong> ₹${transaction.amount}</p>
+                        <p><strong>${transaction.type.toUpperCase()}:</strong> ₹<span class="transaction-amount">${transaction.amount}</span></p>
                         <p><strong>Note:</strong> ${transaction.note || "No note provided"}</p>
                         <p><strong>Date & Time:</strong> ${transaction.date_time || "N/A"}</p>
+                        <button class="edit-transaction bg-blue-500 text-white px-2 py-1 rounded" data-id="${transaction.id}">Edit</button>
                     `;
                     transactionsContainer.appendChild(transactionDiv);
+                });
+    
+                // Add click event listeners for the Edit buttons
+                document.querySelectorAll(".edit-transaction").forEach(button => {
+                    button.addEventListener("click", (e) => {
+                        const transactionId = e.target.getAttribute("data-id");
+                        openEditForm(transactionId);
+                    });
                 });
             })
             .catch(error => console.error("Error fetching transactions:", error));
     }
+    
     
     // Call the function to load transactions
     fetchTransactions();
